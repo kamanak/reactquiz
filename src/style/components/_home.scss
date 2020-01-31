@@ -1,0 +1,70 @@
+#home {
+    background-image: url('../../assets/img/go.jpg');
+    background-size: cover;
+    background-position:center ;
+    display: flex;
+    justify-content: space-around;
+    
+     height: 100vh;
+     width: 100em;
+     
+
+     section{
+        background-image: url('../../assets/img/background.jpg');
+         padding-left: 2rem;
+         padding-right: 2rem;
+         height: 80%;
+         width: 30%;
+     }
+     h1{
+         font-size:xx-large;
+         text-align: center;
+         color: wheat;
+     }
+     .play-button{
+         width: 100%;
+     }
+     a.play{
+         background-color: green;
+         border-radius: 30px;
+         color: white;
+         display: block;
+         cursor: pointer;
+         padding: 1rem;
+         text-align: center;
+         transition: 0.3% linear all;
+
+     }
+     a.play:hover{
+        background-color:rgb(90, 128, 0) ; 
+     }
+     .auth-container{
+         width: 100%;
+         display: flex;
+         justify-content: space-around;
+         margin-top: 5%;
+     #login-but{
+            background-color: red ;
+   
+        }
+        #login-but:hover{
+            background-color: rgba(255, 0, 0, 0.514) ;
+   
+        }
+    #sign-but:hover{
+        background-color:rgba(0, 153, 255, 0.616);
+    }
+    #sign-but{
+        background-color:rgba(0, 119, 255, 0.932);
+    }
+     }
+     
+     .auth-container .but{
+         color: white;
+         cursor: pointer;
+         border-radius: 30px;
+         padding: 1rem 0;
+         text-align: center;
+         width: 45%;
+     }
+}
