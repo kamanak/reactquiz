@@ -7,54 +7,60 @@ export class Play extends Component {
     constructor(props) {
         super(props)
         this.state={
-            questions:questions,
-            currntquestions:{},
-            nextquestions:{},
-            previousquestions:{},
+            questions,
+            currentQuestion: {},
+            nextQuestion: {},
+            previousQuestion: {},
             answer: '',
-            numberofquestions:0,
-            numberofansweredquestions:0,
-            currentquestionindex:0,
-            score:0,
-            correctanswer:0,
-            wronganswer:0,
-            hints:5,
-            fiftyfifty: 2,
-            usedfiftyfifty: false,
-            time: {}
+            numberOfQuestions: 0,
+            numberOfAnsweredQuestions: 0,
+            currentQuestionIndex: 0,
+            score: 0,
+            correctAnswers: 0,
+            wrongAnswers: 0,
+            hints: 5,
+            fiftyFifty: 2,
+            usedFiftyFifty: false,
+           
+            
       
 
         };
         
+        
       
              
         }
-        componentDidMount() {
-            const{questions,currntquestions,nextquestions,previousquestions} = this.state;
-            this.displayquestions(questions,currntquestions,nextquestions,previousquestions);
-        }
-        displayquestions = (questions = this.state.questions,currntquestions,nextquestions,previousquestions) =>{
-            let{currentquestionindex}=this.state;
-            if (! isEmpty(this.state.questions)) {
-                      questions = this.state.questions;
-                      currntquestions=questions[currentquestionindex];
-                      nextquestions=questions[currentquestionindex + 1];
-                      previousquestions=questions[currentquestionindex - 1];
-                      const answer = currntquestions.answer;
-                      
-                      this.setstate({
-                              currntquestions,
-                              nextquestions,
-                              previousquestions,
-                              answer
-                         });     
+        componentDidMount () {
+            const { questions, currentQuestion, nextQuestion, previousQuestion } = this.state;
+            this.displayQuestions(questions, currentQuestion, nextQuestion, previousQuestion);
             
-                        }          
+        }
+    
+        displayQuestions = (questions = this.state.questions, currentQuestion, nextQuestion, previousQuestion) => {
+            let { currentQuestionIndex } = this.state;   
+            if (!isEmpty(this.state.questions)) {
+                questions = this.state.questions;
+                currentQuestion = questions[currentQuestionIndex];
+                nextQuestion = questions[currentQuestionIndex + 1];
+                previousQuestion = questions[currentQuestionIndex - 1];
+                const answer = currentQuestion.answer;
+                this.setState({
+                    currentQuestion,
+                    nextQuestion,
+                    previousQuestion,
+                    numberOfQuestions: questions.length,
+                    answer,
+                   
+                
+                });
+            }     
         };
-
+    
+       
    
         render() {
-            const{currntquestions}=this.state;
+            const{currentQuestion}=this.state;
         return (
             <div>
              <Fragment>
@@ -75,15 +81,15 @@ export class Play extends Component {
                            <span className="right">  2:10 <span>clock</span></span>
                           </p>
                       </div>
-                      <h1>{currntquestions.questions}</h1>
+                      <h1>{currentQuestion.question}</h1>
                        <div className='options'>
-                           <p className='opt'>{currntquestions.optionA}</p>
-                           <p className='opt'>{currntquestions.optionB}</p>
+                           <p className='opt'>{currentQuestion.optionA}</p>
+                           <p className='opt'>{currentQuestion.optionB}</p>
                           
                        </div>
                        <div className='options'>
-                           <p className='opt'>{currntquestions.optionC}</p>
-                           <p className='opt'>{currntquestions.optionD}</p>
+                           <p className='opt'>{currentQuestion.optionC}</p>
+                           <p className='opt'>{currentQuestion.optionD}</p>
                            
                        </div>
                        <div className='buttom'>
