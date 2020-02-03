@@ -79,7 +79,9 @@ export class Play extends Component {
             correctAnswers:prevstate.correctAnswers +1,
             currentQuestionIndex:prevstate.currentQuestionIndex +1 ,
             numberOfAnsweredQuestions:prevstate.numberOfAnsweredQuestions +1,
-        })
+        }), () =>{
+            this.displayQuestions(this.state.questions,this.state.currentQuestion,this.state.nextQuestion,this.state.previousQuestion)
+        }
         );
     }  
     wrongAnswers = () => {
@@ -94,7 +96,9 @@ export class Play extends Component {
            currentQuestionIndex:prevstate.currentQuestionIndex +1,
            numberOfAnsweredQuestions:prevstate.numberOfAnsweredQuestions + 1,
 
-        })
+        }), () =>{
+            this.displayQuestions(this.state.questions,this.state.currentQuestion,this.state.nextQuestion,this.state.previousQuestion)
+        }
         );
 
     } 
