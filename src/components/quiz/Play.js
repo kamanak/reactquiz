@@ -3,6 +3,7 @@ import React, { Component, Fragment } from 'react'
 import {Helmet} from 'react-helmet';
 import questions from '../../questions.json';
 import isEmpty from "../../utubs/is-empty";
+import M from "materialize-css";
 export class Play extends Component {
     constructor(props) {
         super(props)
@@ -55,11 +56,50 @@ export class Play extends Component {
                 
                 });
             }     
-        };
+        }
+
     
-       
+    handlepotionclick = (e) =>{
+      if(e.target.innerHTML.toLowerCase() === this.state.answer.toLowerCase()){
+          this.correctAnswers();
+        }
+          else{
+              this.wrongAnswers();
+          }
+      }
+ 
+    correctAnswers = () => {
+        M.toast({
+            html:"correct answer",
+            classes : "toast-valid",
+            displaylength:1500
+        });
+        this.setState(prevstate => ({
+            score: prevstate.score +1,
+            correctAnswers:prevstate.correctAnswers +1,
+            currentQuestionIndex:prevstate.currentQuestionIndex +1 ,
+            numberOfAnsweredQuestions:prevstate.numberOfAnsweredQuestions +1,
+        })
+        );
+    }  
+    wrongAnswers = () => {
+        navigator.vibrate(1000);
+        M.toast({
+            html:"wrong answer",
+            classes : "toast-invalid",
+            displaylength:1500
+        });
+        this.setState(prevstate => ({
+           wrongAnswers:prevstate.wrongAnswers +1,
+           currentQuestionIndex:prevstate.currentQuestionIndex +1,
+           numberOfAnsweredQuestions:prevstate.numberOfAnsweredQuestions + 1,
+
+        })
+        );
+
+    } 
    
-        render() {
+    render() {
             const{currentQuestion}=this.state;
         return (
             <div>
@@ -83,13 +123,13 @@ export class Play extends Component {
                       </div>
                       <h1>{currentQuestion.question}</h1>
                        <div className='options'>
-                           <p className='opt'>{currentQuestion.optionA}</p>
-                           <p className='opt'>{currentQuestion.optionB}</p>
+                           <p onClick={this.handlepotionclick} className='opt'>{currentQuestion.optionA}</p>
+                           <p onClick={this.handlepotionclick} className='opt'>{currentQuestion.optionB}</p>
                           
                        </div>
                        <div className='options'>
-                           <p className='opt'>{currentQuestion.optionC}</p>
-                           <p className='opt'>{currentQuestion.optionD}</p>
+                           <p onClick={this.handlepotionclick} className='opt'>{currentQuestion.optionC}</p>
+                           <p onClick={this.handlepotionclick}className='opt'>{currentQuestion.optionD}</p>
                            
                        </div>
                        <div className='buttom'>
