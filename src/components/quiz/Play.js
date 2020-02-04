@@ -4,6 +4,9 @@ import {Helmet} from 'react-helmet';
 import questions from '../../questions.json';
 import isEmpty from "../../utubs/is-empty";
 import M from "materialize-css";
+import correctnotification from "../../assets/audio/correct-answer.mp3";
+import wrongnotification from "../../assets/audio/wrong-answer.mp3";
+import buttonsound from "../../assets/audio/button-sound.mp3";
 export class Play extends Component {
     constructor(props) {
         super(props)
@@ -61,11 +64,23 @@ export class Play extends Component {
     
     handlepotionclick = (e) =>{
       if(e.target.innerHTML.toLowerCase() === this.state.answer.toLowerCase()){
+         setTimeout(() =>{
+            document.getElementById('correct').play();
+         },5000)
           this.correctAnswers();
         }
           else{
+            setTimeout(() =>{
+                document.getElementById('wrong').play();
+             },5000)
               this.wrongAnswers();
           }
+      }
+      handlebuttonclick =()=>{
+          this.playbuttonsound();
+      }
+      playbuttonsound =() =>{
+          document.getElementById('button-sound').play();
       }
  
     correctAnswers = () => {
@@ -104,11 +119,16 @@ export class Play extends Component {
     } 
    
     render() {
-            const{currentQuestion}=this.state;
+            const{currentQuestion,currentQuestionIndex,numberOfQuestions}=this.state;
         return (
             <div>
              <Fragment>
                   <Helmet><title>quiz page</title></Helmet>
+                  <Fragment>
+                      <audio id="correct" src={correctnotification}> </audio>
+                      <audio id="wrong"src={wrongnotification}> </audio>
+                      <audio id="button-sound" src={buttonsound}> </audio>
+                  </Fragment>
                   <div className='question'>
                       <h2>Quiz mode</h2>
                       <div className="lifeline">
@@ -121,7 +141,7 @@ export class Play extends Component {
                       </div>
                       <div className="timer">
                           <p>
-                              <span className='left' style={{float:'left'}}>1 of 15</span>
+                              <span className='left' style={{float:'left'}}>{currentQuestionIndex+1}of{numberOfQuestions}</span>
                            <span className="right">  2:10 <span>clock</span></span>
                           </p>
                       </div>
@@ -137,9 +157,9 @@ export class Play extends Component {
                            
                        </div>
                        <div className='buttom'>
-                           <button>Previos</button>
-                           <button>next</button>
-                           <button>Quit</button>
+                           <button onClick={this.handlebuttonclick}>Previos</button>
+                           <button onClick={this.handlebuttonclick}>next</button>
+                           <button onClick={this.handlebuttonclick}>Quit</button>
                        </div>
                   </div>
              </Fragment>
