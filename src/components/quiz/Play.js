@@ -66,22 +66,60 @@ export class Play extends Component {
       if(e.target.innerHTML.toLowerCase() === this.state.answer.toLowerCase()){
          setTimeout(() =>{
             document.getElementById('correct').play();
-         },5000)
+         },500)
           this.correctAnswers();
         }
           else{
             setTimeout(() =>{
                 document.getElementById('wrong').play();
-             },5000)
+             },500)
               this.wrongAnswers();
           }
       }
-      handlebuttonclick =()=>{
-          this.playbuttonsound();
-      }
+      handlebuttonclick =(e)=>{
+          switch(e.target.id){
+              case "next-button":
+                this.handlenextbutton();
+                break;
+              case 'prev-button':
+                 this.handleprebutton();
+              default:
+                  break;
+              case 'quit-button':
+                  this.handlequitbuttonclick();
+          }
+         
+      };
       playbuttonsound =() =>{
           document.getElementById('button-sound').play();
       }
+      handlenextbutton = () =>{
+          this.playbuttonsound();
+          if(this.state.nextQuestion !== undefined){
+              this.setState(prvstate => ({
+                  currentQuestionIndex: prvstate.currentQuestionIndex + 1
+              }),()=>{
+                  this.displayQuestions(this.state.questions,this.state.currentQuestion,this.state.nextQuestion,this.state.previousQuestion);
+              });
+          }
+      }
+      handleprebutton = () =>{
+        this.playbuttonsound();
+        if(this.state.previousQuestion !== undefined){
+            this.setState(prvstate => ({
+                currentQuestionIndex: prvstate.currentQuestionIndex - 1
+            }),()=>{
+                this.displayQuestions(this.state.questions,this.state.currentQuestion,this.state.nextQuestion,this.state.previousQuestion);
+            });
+        }
+    }
+    handlequitbuttonclick=()=>{
+        this.playbuttonsound();
+      
+         if(window.confirm('Are you sure you want to quit')){
+             this.props.history.push('/'); //from this we went to home page
+         }
+    }
  
     correctAnswers = () => {
         M.toast({
@@ -157,9 +195,9 @@ export class Play extends Component {
                            
                        </div>
                        <div className='buttom'>
-                           <button onClick={this.handlebuttonclick}>Previos</button>
-                           <button onClick={this.handlebuttonclick}>next</button>
-                           <button onClick={this.handlebuttonclick}>Quit</button>
+                           <button id="prev-button"onClick={this.handlebuttonclick}>Previos</button>
+                           <button id='next-button'onClick={this.handlebuttonclick}>next</button>
+                           <button id='quit-button'onClick={this.handlebuttonclick}>Quit</button>
                        </div>
                   </div>
              </Fragment>
